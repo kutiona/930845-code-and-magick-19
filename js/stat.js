@@ -10,13 +10,11 @@ var TEXT_WIDTH = 40;
 var BAR_HEIGHT = 150;
 var GAP_SHADOW = 10;
 
-    function getRandomColor(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return ('hsl(240, ' + (Math.floor(Math.random() * (max - min)) + min) + '%,' + ' 50%)');
-    };
-    console.log (getRandomColor(1, 100));
-
+function getRandomColor(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return ('hsl(240, ' + (Math.floor(Math.random() * (max - min)) + min) + '%,' + ' 50%)');
+}
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -46,19 +44,17 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillText('Список результатов:', 120, 50);
 
   var maxTime = getMaxElement(times);
-  
 
   for (var i = 0; i < players.length; i++) {
-      if (players[i] = 'Вы') {
-        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-      } else {getRandomColor (1, 100)};
-    };
+    if (players[i] = 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    } else { getRandomColor (1, 100) };
+  };
 
-
-  for (var i = 0; i < players.length; i++) {
+  for (i = 0; i < players.length; i++) {
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + GAP + (TEXT_WIDTH + GAP) * i, CLOUD_Y + GAP + FONT_GAP * 2 + BAR_HEIGHT);
     ctx.fillRect(CLOUD_X + GAP + (TEXT_WIDTH + GAP) * i, CLOUD_Y + GAP + FONT_GAP + BAR_HEIGHT, TEXT_WIDTH, -(BAR_HEIGHT * times[i]) / maxTime);
-    
+
   };
 };
