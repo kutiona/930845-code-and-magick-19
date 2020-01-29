@@ -46,15 +46,12 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-    if (players[i] = 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else { getRandomColor (1, 100) };
+    players[i] == 'Вы' ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : ctx.fillStyle = getRandomColor (1, 100);
   };
 
   for (i = 0; i < players.length; i++) {
-    ctx.fillStyle = '#000';
+    // ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + GAP + (TEXT_WIDTH + GAP) * i, CLOUD_Y + GAP + FONT_GAP * 2 + BAR_HEIGHT);
     ctx.fillRect(CLOUD_X + GAP + (TEXT_WIDTH + GAP) * i, CLOUD_Y + GAP + FONT_GAP + BAR_HEIGHT, TEXT_WIDTH, -(BAR_HEIGHT * times[i]) / maxTime);
-
   };
 };
