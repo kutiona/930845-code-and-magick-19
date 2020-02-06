@@ -6,13 +6,12 @@ var WIZARD_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 16
 var WIZARD_EYESCOLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
 
 var similarListElement = document.querySelector('.setup-similar-list');
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-    .content
-    .querySelector('.setup-similar-item');
+  .content
+  .querySelector('.setup-similar-item');
 
 function getRandomWizard(min, max) {
   min = Math.ceil(min);
@@ -20,17 +19,20 @@ function getRandomWizard(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-var wizards = [];
+var generatWizardsInfo = function () {
+  var wizards = [];
 
-for (var i = 0; i < 4; i++) {
-  wizards[i] =
-  {
-    name: WIZARD_NAMES[getRandomWizard(0, WIZARD_NAMES.length)],
-    surname: WIZARD_SURNAMES[getRandomWizard(0, WIZARD_SURNAMES.length)],
-    coatColor: WIZARD_COLOR[getRandomWizard(0, WIZARD_COLOR.length)],
-    eyesColor: WIZARD_EYESCOLOR[getRandomWizard(0, WIZARD_EYESCOLOR.length)]
-  };
-}
+  for (var i = 0; i < 4; i++) {
+    wizards[i] =
+    {
+      name: WIZARD_NAMES[getRandomWizard(0, WIZARD_NAMES.length)],
+      surname: WIZARD_SURNAMES[getRandomWizard(0, WIZARD_SURNAMES.length)],
+      coatColor: WIZARD_COLOR[getRandomWizard(0, WIZARD_COLOR.length)],
+      eyesColor: WIZARD_EYESCOLOR[getRandomWizard(0, WIZARD_EYESCOLOR.length)]
+    };
+  }
+  return wizards;
+};
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -42,10 +44,16 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var fragment = document.createDocumentFragment();
-for (i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
-}
-similarListElement.appendChild(fragment);
+var renderWizards = function () {
+  var fragment = document.createDocumentFragment();
 
+  for (var i = 0; i < generatWizardsInfo().length; i++) {
+    fragment.appendChild(renderWizard(generatWizardsInfo()[i]));
+  }
+  similarListElement.appendChild(fragment);
+};
+
+userDialog.classList.remove('hidden');
+generatWizardsInfo();
+renderWizards();
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
